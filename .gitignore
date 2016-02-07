@@ -1,0 +1,8 @@
+.DS_Store
+*.org_archive
+*-blx.bib
+*.bbl
+*.tex
+*.md
+*#
+*~
