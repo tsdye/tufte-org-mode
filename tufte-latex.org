@@ -299,9 +299,9 @@ text-block plus margin, and Table [[tab:marginal]] is placed in the margin.
 
 \printbibliography
 
-* Tufte Org Mode Manual                                            :noexport:
+* Tufte Org Mode README                                            :noexport:
 :PROPERTIES:
-:EXPORT_FILE_NAME: tufte-org-mode
+:EXPORT_FILE_NAME: README
 :EXPORT_TITLE: Tufte Org Mode
 :END:
 
