@@ -393,16 +393,13 @@ This function assumes TABLE has `org' as its `:type' property and
                                (org-element-property :caption table)
                                (org-string-nw-p (plist-get attr :caption)))
                            "table")))))
-         (when (equal float-env "margintable")
-	   (let ((offset (plist-get attr :offset)))
-	     (when offset
-	       (setq float-env (concat float-env (format "[%s]" offset))))))
          ;; Extract others display options.
          (fontsize (let ((font (plist-get attr :font)))
                      (and font (concat font "\n"))))
          ;; "tabular" environment doesn't allow to define a width.
          (width (and (not (equal table-env "tabular")) (plist-get attr :width)))
          (spreadp (plist-get attr :spread))
+	 (offset (and (equal "margintable" float-env) (plist-get attr :offset)))
          (placement
           (or (plist-get attr :placement)
               (format "[%s]" (plist-get info :latex-default-figure-position))))
@@ -444,7 +441,10 @@ This function assumes TABLE has `org' as its `:type' property and
       ;; Others.
       (t (concat (cond
                    (float-env
-                    (concat (format "\\begin{%s}%s\n" float-env placement)
+                    (concat (format "\\begin{%s}%s\n" float-env
+				    (if (string= "margintable" float-env)
+					(if offset (format "[%s]" offset) "")
+					placement))
                             (if caption-above-p caption "")
                             (when centerp "\\centering\n")
                             fontsize))
@@ -520,7 +520,7 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
              (attr (org-export-get-footnote-definition--latex-attributes
                     footnote-reference info))
              (offs (plist-get attr :offset))
-             (offset (if offs (format "[][%s]" offs) "")))
+             (offset (if offs (format "[][%s]" offs) "[]")))
         (concat
          (format "\\sidenote%s{%s}" offset (org-trim (org-export-data def info)))
          ;; Retrieve all footnote references within the footnote and

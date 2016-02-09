@@ -255,7 +255,7 @@ text-block plus margin, and Table [[tab:marginal]] is placed in the margin.
 #+name: tab:marginal
 #+caption[Example marginal table]: Example marginal table.
 #+caption: Note that the table and the caption are placed in the margin.
-#+attr_latex: :font \footnotesize :float margin :offset [72pt]
+#+attr_latex: :font \footnotesize :float margin :offset 72pt
 | First | Second | Third |
 |-------+--------+-------|
 | One   | Two    | Three |
@@ -750,7 +750,7 @@ definition, e.g.,
 
 [fn:3] This is the first footnote.
 
-#+attr_latex: :offset 24pt
+#+attr_latex: :offset 72pt
 [fn:2] This footnote is shifted down.
 
 [fn:1] Some footnote text. In-footnote citations appear not to work.
