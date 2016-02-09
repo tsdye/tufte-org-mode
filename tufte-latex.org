@@ -122,7 +122,7 @@ of another paragraph, introduced with an Org mode link,
 and containing a footnote.[fn:2]
 
 ,* Footnotes
-,#+attr_latex: :placement 24pt
+,#+attr_latex: :offset 24pt
 [fn:2] This footnote is shifted down.
 #+end_example
 
@@ -255,7 +255,7 @@ text-block plus margin, and Table [[tab:marginal]] is placed in the margin.
 #+name: tab:marginal
 #+caption[Example marginal table]: Example marginal table.
 #+caption: Note that the table and the caption are placed in the margin.
-#+attr_latex: :font \footnotesize :float margin :placement [72pt]
+#+attr_latex: :font \footnotesize :float margin :offset [72pt]
 | First | Second | Third |
 |-------+--------+-------|
 | One   | Two    | Three |
@@ -267,7 +267,7 @@ text-block plus margin, and Table [[tab:marginal]] is placed in the margin.
 ,#+name: tab:marginal
 ,#+caption[Example marginal table]: Example marginal table.
 ,#+caption: Note that the table and the caption are placed
-,#+attr_latex: :font \footnotesize :float margin :placement [72pt]
+,#+attr_latex: :font \footnotesize :float margin :offset [72pt]
 | First | Second | Third |
 |-------+--------+-------|
 | One   | Two    | Three |
@@ -510,12 +510,12 @@ Tufte Org mode defines several Org mode macros for convenience.
  - sidenote :: This macro takes three arguments:
    - the text of the note
    - optionally, a number for the note (if none is given, one will be assigned)
-   - an placement expressed as a LaTeX length, where positive values move
+   - an offset expressed as a LaTeX length, where positive values move
      the note down in the margin and negative values move it up.
  - marginnote :: this macro puts an unnumbered note in the margin, and
       takes two arguments:
    - the text of the note
-   - an placement expressed as a LaTeX length, where positive values move
+   - an offset expressed as a LaTeX length, where positive values move
      the note down in the margin and negative values move it up.
  - tl :: a convenience macro that will result in a properly typeset
       package name, {{{tl}}}.
@@ -536,7 +536,7 @@ inserting arbitrary LaTeX commands.
 Citation links are inserted by Ebib.  The =footcite= link will place a
 citation in the margin at a location chosen by LaTeX.  You won't be
 able to move it if it collides with something else.  [[http://tex.stackexchange.com/questions/238661/is-it-possible-to-fine-tune-the-citation-positions-in-tufte-biblatex-combination?lq=1][The =sidecite= link]]
-has an =placement= option that lets you move the citation up or down as you
+has an =offset= option that lets you move the citation up or down as you
 wish.  The other citation links -- =cite=, =textcite=, and =parencite= --
 are most useful in notes.
 
@@ -651,7 +651,7 @@ margin= in the =#+attr_latex:= line.
 ,#+name: tab:marginal
 ,#+caption[Example marginal table]: Example marginal table.
 ,#+caption: Note that the table and the caption are placed in the margin.
-,#+attr_latex: :booktabs nil :font \footnotesize :float margin :placement [-2in]
+,#+attr_latex: :booktabs nil :font \footnotesize :float margin :offset [-2in]
 | First | Second | Third |
 |-------+--------+-------|
 | One   | Two    | Three |
@@ -708,7 +708,7 @@ Note =:float multicolumn= in the =#+attr_latex:= line.
 
 A figure placed in the margin can be 2 in. wide.  A margin figure is
 specified by =:float margin= in the =#+attr_latex:= line.  The position of
-the figure in the margin can be adjusted up or down using the =:placement=
+the figure in the margin can be adjusted up or down using the =:offset=
 attribute, which takes a LaTeX length.  A negative length will move
 the figure up in the margin and a positive length will move the figure
 down.
@@ -717,15 +717,15 @@ down.
 ,#+name: fig:marginal
 ,#+caption[Helix in the margin]: Helix in the margin.
 ,#+caption: Note that this figure fits in the margin.
-,#+attr_latex: :float margin :width 2in :placement -2.5in 
+,#+attr_latex: :float margin :width 2in :offset -2.5in 
 [[file:helix.pdf]]
 #+end_example
 
 * Notes                                                            :noexport:
 ** Overview of commands
 The =marginfigure= command is controlled by a new LaTeX attribute
-=:float margin=.  In addition, there are attributes to: set the placement,
-e.g., =:placement 1in=, which adjusts the position of the figure up or
+=:float margin=.  In addition, there are attributes to: set the offset,
+e.g., =:offset 1in=, which adjusts the position of the figure up or
 down in the margin; the vertical alignment of float captions, e.g.,
 =:vertical-alignment t|b=, so they align with either the top or bottom
 of the float; and =:horizontal-alignment l|r= in case a figure and its
@@ -736,11 +736,11 @@ margin= associated with a table.
 
 The Org mode footnote mechanism has been hijacked to produce
 =sidenote= commands, instead of =footnote= commands.  The =sidenote=
-command takes an optional parameter for the placement, and this is
+command takes an optional parameter for the offset, and this is
 implemented as a LaTeX attribute associated with the Org mode footnote
 definition, e.g.,
 #+begin_example
-#+attr_latex: :placement 36pt
+#+attr_latex: :offset 36pt
 [fn:1] Cook referred to Koa`a as Koah.
 #+end_example
 
@@ -750,7 +750,7 @@ definition, e.g.,
 
 [fn:3] This is the first footnote.
 
-#+attr_latex: :placement 24pt
+#+attr_latex: :offset 24pt
 [fn:2] This footnote is shifted down.
 
 [fn:1] Some footnote text. In-footnote citations appear not to work.
@@ -1129,6 +1129,7 @@ from lines like: #+PROPERTY: value"
 # Local Variables: 
 # eval: (require 'ox-tufte-latex)
 # eval: (require 'ox-extra)
+# eval: (require 'ox-gfm)
 # eval: (ox-extras-activate '(ignore-headlines))
 # eval: (org-sbe "user-entities")
 # eval: (org-sbe "tufte-book")

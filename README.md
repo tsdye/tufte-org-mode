@@ -282,7 +282,7 @@ argument.
 
 # Headings
 
-The [Tufte book class](tufte-latex.md) defines headings for Part, Chapter, Section,
+The [Tufte book class](../tufte-latex.md) defines headings for Part, Chapter, Section,
 Subsection, and Paragraph.  Part maps to first level Org mode headlines,
 Chapter to second level Org mode headlines, and so on.
 
@@ -296,7 +296,7 @@ level headers:
     **** Fourth level headline is a Subsection
     ***** Fifth level headline is a Paragraph
 
-The [Tufte handout class](tufte-latex.md) defines headings for Section and Subsection
+The [Tufte handout class](../tufte-latex.md) defines headings for Section and Subsection
 and these are mapped to first and second level Org mode headings,
 respectively. 
 
@@ -338,7 +338,7 @@ margin` in the `#+attr_latex:` line.
     #+name: tab:marginal
     #+caption[Example marginal table]: Example marginal table.
     #+caption: Note that the table and the caption are placed in the margin.
-    #+attr_latex: :booktabs nil :font \footnotesize :float margin :placement [-2in]
+    #+attr_latex: :booktabs nil :font \footnotesize :float margin :offset [-2in]
     | First | Second | Third |
     |-------+--------+-------|
     | One   | Two    | Three |
@@ -398,4 +398,3 @@ down.
     #+caption: Note that this figure fits in the margin.
     #+attr_latex: :float margin :width 2in :offset -2.5in 
     [[file:helix.pdf]]
-

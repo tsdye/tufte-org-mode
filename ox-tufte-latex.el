@@ -45,8 +45,8 @@
      (?P "As PDF file" org-tufte-latex-export-to-pdf)
      (?p "As PDF file and open"
       (lambda (a s v b)
-	      (if a (org-tufte-latex-export-to-pdf t s v b)
-		(org-open-file (org-tufte-latex-export-to-pdf nil s v b)))))))
+        (if a (org-tufte-latex-export-to-pdf t s v b)
+            (org-open-file (org-tufte-latex-export-to-pdf nil s v b)))))))
   :translate-alist '((footnote-reference . org-tufte-latex-footnote-reference)
                      (table . org-tufte-latex-table)
                      (link . org-tufte-latex-link)))
@@ -109,7 +109,7 @@ used as a communication channel."
                         (match-string 1 opt))))
          ;; td - start
          (offset
-          (let ((offs (plist-get attr :placement)))
+          (let ((offs (plist-get attr :offset)))
             (cond
               (offs (format "[%s]" offs))
               ((eq float 'margin)
@@ -393,6 +393,10 @@ This function assumes TABLE has `org' as its `:type' property and
                                (org-element-property :caption table)
                                (org-string-nw-p (plist-get attr :caption)))
                            "table")))))
+         (when (equal float-env "margintable")
+	   (let ((offset (plist-get attr :offset)))
+	     (when offset
+	       (setq float-env (concat float-env (format "[%s]" offset))))))
          ;; Extract others display options.
          (fontsize (let ((font (plist-get attr :font)))
                      (and font (concat font "\n"))))
@@ -486,49 +490,49 @@ are none.  INFO is the plist used as a communication channel."
   (let ((label (org-element-property :label footnote-reference)))
     (when label
       (org-element-map (plist-get info :parse-tree)
-	  '(footnote-definition footnote-reference)
-	(lambda (f)
-	  (and (equal (org-element-property :label f) label)
-	       (org-export-read-attribute :attr_latex f)))
-	info t))))
+          '(footnote-definition footnote-reference)
+        (lambda (f)
+          (and (equal (org-element-property :label f) label)
+               (org-export-read-attribute :attr_latex f)))
+        info t))))
 
-  (defun org-tufte-latex-footnote-reference (footnote-reference _contents info)
-    "Transcode a FOOTNOTE-REFERENCE element from Org to Tufte LaTeX.
+(defun org-tufte-latex-footnote-reference (footnote-reference _contents info)
+  "Transcode a FOOTNOTE-REFERENCE element from Org to Tufte LaTeX.
 CONTENTS is nil.  INFO is a plist holding contextual information."
-    (concat
-     ;; Insert separator between two footnotes in a row.
-     (let ((prev (org-export-get-previous-element footnote-reference info)))
-       (when (eq (org-element-type prev) 'footnote-reference)
-         (plist-get info :latex-footnote-separator)))
-     (cond
-       ;; Use \footnotemark if the footnote has already been defined.
-       ((not (org-export-footnote-first-reference-p footnote-reference info))
-        (format "\\footnotemark[%s]{}"
-                (org-export-get-footnote-number footnote-reference info)))
-       ;; Use \footnotemark if reference is within another footnote
-       ;; reference, footnote definition or table cell.
-       ((org-element-lineage footnote-reference
-                             '(footnote-reference footnote-definition table-cell))
-        "\\footnotemark")
-       ;; Otherwise, define it with \sidenote command.
-       (t
-        (let* ((def (org-export-get-footnote-definition footnote-reference info))
-               (attr (org-export-get-footnote-definition--latex-attributes
-		      footnote-reference info))
-               (offs (plist-get attr :placement))
-               (offset (if offs (format "[][%s]" offs) "")))
-          (concat
-           (format "\\sidenote%s{%s}" offset (org-trim (org-export-data def info)))
-           ;; Retrieve all footnote references within the footnote and
-           ;; add their definition after it, since LaTeX doesn't support
-           ;; them inside.
-           (org-latex--delayed-footnotes-definitions def info)))))))
+  (concat
+   ;; Insert separator between two footnotes in a row.
+   (let ((prev (org-export-get-previous-element footnote-reference info)))
+     (when (eq (org-element-type prev) 'footnote-reference)
+       (plist-get info :latex-footnote-separator)))
+   (cond
+     ;; Use \footnotemark if the footnote has already been defined.
+     ((not (org-export-footnote-first-reference-p footnote-reference info))
+      (format "\\footnotemark[%s]{}"
+              (org-export-get-footnote-number footnote-reference info)))
+     ;; Use \footnotemark if reference is within another footnote
+     ;; reference, footnote definition or table cell.
+     ((org-element-lineage footnote-reference
+                           '(footnote-reference footnote-definition table-cell))
+      "\\footnotemark")
+     ;; Otherwise, define it with \sidenote command.
+     (t
+      (let* ((def (org-export-get-footnote-definition footnote-reference info))
+             (attr (org-export-get-footnote-definition--latex-attributes
+                    footnote-reference info))
+             (offs (plist-get attr :offset))
+             (offset (if offs (format "[][%s]" offs) "")))
+        (concat
+         (format "\\sidenote%s{%s}" offset (org-trim (org-export-data def info)))
+         ;; Retrieve all footnote references within the footnote and
+         ;; add their definition after it, since LaTeX doesn't support
+         ;; them inside.
+         (org-latex--delayed-footnotes-definitions def info)))))))
 
 ;;; Interactive function
 
 ;;;###autoload
-  (defun org-tufte-latex-export-as-latex (&optional async subtreep visible-only)
-    "Export current buffer to a Tufte LaTeX buffer.
+(defun org-tufte-latex-export-as-latex (&optional async subtreep visible-only)
+  "Export current buffer to a Tufte LaTeX buffer.
 
 If narrowing is active in the current buffer, only export its
 narrowed part.
@@ -549,24 +553,24 @@ contents of hidden elements.
 Export is done in a buffer named \"*Org Tufte LaTeX Export*\", which will
 be displayed when `org-export-show-temporary-export-buffer' is
 non-nil."
-    (interactive)
-    (org-export-to-buffer 'tufte-latex "*Org Tufte LaTeX Export*"
-      async subtreep visible-only nil nil (lambda () (text-mode))))
+  (interactive)
+  (org-export-to-buffer 'tufte-latex "*Org Tufte LaTeX Export*"
+    async subtreep visible-only nil nil (lambda () (text-mode))))
 
 
 ;;;###autoload
-  (defun org-tufte-latex-convert-region-to-latex ()
-    "Assume the current region has org-mode syntax, and convert it
+(defun org-tufte-latex-convert-region-to-latex ()
+  "Assume the current region has org-mode syntax, and convert it
 to Tufte LaTeX.  This can be used in any buffer.
 For example, you can write an itemized list in org-mode syntax in
 a Tufte LaTeX buffer and use this command to convert it."
-    (interactive)
-    (org-export-replace-region-by 'tufte-latex))
+  (interactive)
+  (org-export-replace-region-by 'tufte-latex))
 
 
 ;;;###autoload
-  (defun org-tufte-latex-export-to-latex (&optional async subtreep visible-only)
-    "Export current buffer to a Tufte LaTeX file.
+(defun org-tufte-latex-export-to-latex (&optional async subtreep visible-only)
+  "Export current buffer to a Tufte LaTeX file.
 
 If narrowing is active in the current buffer, only export its
 narrowed part.
@@ -585,12 +589,12 @@ When optional argument VISIBLE-ONLY is non-nil, don't export
 contents of hidden elements.
 
 Return output file's name."
-    (interactive)
-    (let ((outfile (org-export-output-file-name ".tex" subtreep)))
-      (org-export-to-file 'tufte-latex outfile async subtreep visible-only)))
+  (interactive)
+  (let ((outfile (org-export-output-file-name ".tex" subtreep)))
+    (org-export-to-file 'tufte-latex outfile async subtreep visible-only)))
 
 (defun org-tufte-latex-export-to-pdf
-  (&optional async subtreep visible-only body-only ext-plist)
+    (&optional async subtreep visible-only body-only ext-plist)
   "Export current buffer to LaTeX then process through to PDF.
 
 If narrowing is active in the current buffer, only export its
@@ -625,8 +629,8 @@ Return PDF file's name."
 
 (provide 'ox-tufte-latex)
 
-  ;; Local variables:
-  ;; generated-autoload-file: "org-loaddefs.el"
-  ;; End:
+;; Local variables:
+;; generated-autoload-file: "org-loaddefs.el"
+;; End:
 
 ;;; ox-tufte-latex.el ends here
