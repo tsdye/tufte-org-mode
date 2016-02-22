@@ -4,6 +4,15 @@
 *.bbl
 *.tex
 *.md
+*.aux
+*.blg
+*.lof
+*.log
+*.lot
+*.out
+*.xml
+*.out
+*.toc
 *#
 *~
 auto/

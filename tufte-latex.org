@@ -7,8 +7,26 @@
 #+WEB-SITE: http://www.tsdye.com
 #+MARGIN-NOTE-FONT: \itshape\footnotesize
 #+LATEX_CLASS: tufte-handout
-#+LATEX_HEADER: \usepackage[style=verbose-trad1, backend=bibtex]{biblatex}
-#+LATEX_HEADER: \addbibresource{local.bib}
+
+* How to use this document                                         :noexport:
+This Org mode document contains three exportable documents:
+ - a template for writing a Tufte style book
+ - the [[*A Tufte Org Mode Handout][source code for a handout]] that describes how to use Tufte Org Mode
+ - the [[*Tufte Org Mode README][source code for the README]] for github.
+
+You can directly export the book template with org-export-dispatch and
+then choosing Export to Tufte LaTeX and As PDF and open.  For me,
+this yields a 14 page document with mostly blank pages (it is a
+template).
+
+You can export the handout subtree by:
+ 1. changing the #+LATEX_CLASS from tufte-book to tufte-handout
+ 2. renewing the setup by pressing C-c C-c somewhere in the header
+ 3. exporting the subtree in the usual way with org-export-dispatch
+    and then choosing Export to Tufte LaTeX and As PDF and open.
+
+Finally, you can export the README file using the github flavored
+markdown exporter.
 
 * Front matter                                                       :ignore:
 ** Tufte-LaTeX settings                                              :ignore:
@@ -75,7 +93,7 @@ Copyright \\copyright\\ %s %s
 #+end_export
 
 
-* A Tufte Org Mode Handout
+* A Tufte Org Mode Handout                                         :noexport:
 :PROPERTIES:
 :EXPORT_FILE_NAME: tufte-org-mode-handout
 :MARGIN-NOTE-FONT: \itshape\footnotesize
@@ -1090,13 +1108,16 @@ from lines like: #+PROPERTY: value"
 #+MACRO: sidenote \sidenote[$2][$3]{$1}
 #+MACRO: marginnote \marginnote[$2]{$1}
 #+MACRO: tl Tufte-LaTeX
+#+LATEX_HEADER: \usepackage{etex}
+#+LATEX_HEADER: \reserveinserts{28}
+#+LATEX_HEADER: \usepackage{morefloats}
+#+LATEX_HEADER: \usepackage[style=verbose-trad1, backend=bibtex]{biblatex}
+#+LATEX_HEADER: \addbibresource{local.bib}
 #+LATEX_HEADER: \usepackage{booktabs,graphicx,microtype,hyphenat,marginfix,amsmath}
-#+LATEX_HEADER: \usepackage[maxfloats=48]{morefloats}
 #+LATEX_HEADER: \geometry{paperheight=10.5in,paperwidth=8.5in,textwidth=4.375in}
 #+LATEX_HEADER: \titleformat{\part}[display]{\relax\itshape\huge}{}{0pt}{\huge\rmfamily\itshape}[]
 #+LATEX_HEADER: \usepackage{xparse}
 #+LATEX_HEADER: \usepackage{xpatch}
-#+LATEX_HEADER: 
 #+LATEX_HEADER: \makeatletter
 #+LATEX_HEADER: \xpatchcmd{\@footnotetext}%
 #+LATEX_HEADER:       {\color@begingroup}
