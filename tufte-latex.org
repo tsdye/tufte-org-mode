@@ -349,7 +349,7 @@ commands and =tufte-latex.org= gives examples of their use.
 
 *** The {{{tl}}} package
 Most standard LaTeX distributions ship an older version of the {{{tl}}}
-package.  Tufte Org Mode requires version 3.2 of the package, which at
+package.  Tufte Org Mode requires version 3.5.2 of the package, which at
 the time of this writing was the version available from [[https://tufte-latex.github.io/tufte-latex/][the
 Tufte-LaTeX web site]].  In particular, the {{{tl}}} package must support the
 =nobib= option, which instructs the package not to load =natbib= support.

@@ -25,7 +25,7 @@ commands and `tufte-latex.org` gives examples of their use.
 ## The Tufte-LaTeX package
 
 Most standard LaTeX distributions ship an older version of the Tufte-LaTeX
-package.  Tufte Org Mode requires version 3.2 of the package, which at
+package.  Tufte Org Mode requires version 3.5.2 of the package, which at
 the time of this writing was the version available from [the
 Tufte-LaTeX web site](https://tufte-latex.github.io/tufte-latex/).  In particular, the Tufte-LaTeX package must support the
 `nobib` option, which instructs the package not to load `natbib` support.
