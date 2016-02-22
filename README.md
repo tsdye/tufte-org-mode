@@ -52,7 +52,7 @@ Tufte Org Mode tries to load the following packages:
 -   `marginfix`
 -   `amsmath`
 -   `morefloats`
--   `xparse`
+-   `xparse`  (distributed as part of the l3packages bundle)
 -   `xpatch`
 
 These packages are all loaded in `#+LATEX_HEADER` lines.
