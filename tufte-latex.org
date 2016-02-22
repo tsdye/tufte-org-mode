@@ -6,7 +6,7 @@
 #+COPYRIGHT-DATE: 2015
 #+WEB-SITE: http://www.tsdye.com
 #+MARGIN-NOTE-FONT: \itshape\footnotesize
-#+LATEX_CLASS: tufte-handout
+#+LATEX_CLASS: tufte-book
 
 * How to use this document                                         :noexport:
 This Org mode document contains three exportable documents:
