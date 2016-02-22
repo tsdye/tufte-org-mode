@@ -44,6 +44,7 @@ for them.
 In addition to the LaTeX packages required by the Tufte-LaTeX package,
 Tufte Org Mode tries to load the following packages:
 
+-   `etex`
 -   `biblatex`
 -   `booktabs`
 -   `graphicx`

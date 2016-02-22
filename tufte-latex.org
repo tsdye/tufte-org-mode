@@ -366,6 +366,7 @@ for them.
 **** Other Required LaTeX Packages
 In addition to the LaTeX packages required by the {{{tl}}} package,
 Tufte Org Mode tries to load the following packages:
+ - =etex=
  - =biblatex=
  - =booktabs=
  - =graphicx=
