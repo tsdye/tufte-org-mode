@@ -1110,8 +1110,8 @@ from lines like: #+PROPERTY: value"
 #+MACRO: marginnote \marginnote[$2]{$1}
 #+MACRO: tl Tufte-LaTeX
 #+LATEX_HEADER: \usepackage{etex}
-#+LATEX_HEADER: \reserveinserts{28}
-#+LATEX_HEADER: \usepackage{morefloats}
+#+LATEX_HEADER: \reserveinserts{36}
+#+LATEX_HEADER: \usepackage[maxfloats=48]{morefloats}
 #+LATEX_HEADER: \usepackage[style=verbose-trad1, backend=bibtex]{biblatex}
 #+LATEX_HEADER: \addbibresource{local.bib}
 #+LATEX_HEADER: \usepackage{booktabs,graphicx,microtype,hyphenat,marginfix,amsmath}
