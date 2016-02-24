@@ -670,7 +670,7 @@ margin= in the =#+attr_latex:= line.
 ,#+name: tab:marginal
 ,#+caption[Example marginal table]: Example marginal table.
 ,#+caption: Note that the table and the caption are placed in the margin.
-,#+attr_latex: :booktabs nil :font \footnotesize :float margin :offset [-2in]
+,#+attr_latex: :booktabs nil :font \footnotesize :float margin :offset -2in
 | First | Second | Third |
 |-------+--------+-------|
 | One   | Two    | Three |
