@@ -1,3 +1,7 @@
+# Deprecated
+
+The Org mode LaTeX exporter can now be configured to produce Tufte LaTeX input.  The patch described below is no longer necessary.
+
 # Introduction to Tufte Org Mode
 
 Tufte Org Mode is designed to provide an Org mode environment for
